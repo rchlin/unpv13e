@@ -10,13 +10,13 @@ unp=""
 
 uname -a | grep "^Darwin.*x86_64" > /dev/null
 if [ $? == 0 ]; then
-  unp="UNP = -lDarwinunp64"
+  unp="UNP = -lDarwin_unp64"
 else
   uname -a | grep "^Linux.*x86_64" > /dev/null
   if [ $? == 0 ]; then
-    unp="UNP = -lLinuxunp64"
+    unp="UNP = -lLinux_unp64"
   else
-	unp="UNP = -lLinuxunp32"
+	unp="UNP = -lLinux_unp32"
   fi
 fi
 
