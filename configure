@@ -8,11 +8,16 @@ inclu="INCLU = -I ../include"
 lib="LIB = -L ../lib"
 unp=""
 
-uname -a | grep x86_64 > /dev/null
+uname -a | grep "^Darwin.*x86_64" > /dev/null
 if [ $? == 0 ]; then
-  unp="UNP = -lunp64"
+  unp="UNP = -lDarwinunp64"
 else
-  unp="UNP = -lunp"
+  uname -a | grep "^Linux.*x86_64" > /dev/null
+  if [ $? == 0 ]; then
+    unp="UNP = -lLinuxunp64"
+  else
+	unp="UNP = -lLinuxunp32"
+  fi
 fi
 
 [ -e ./Make.defines ] && rm ./Make.defines
