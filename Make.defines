@@ -1,4 +1,0 @@
-CC = gcc
-vpath %.h ../include
-INCLU = -I ../include
-LIB = -L ../lib

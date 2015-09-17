@@ -1,0 +1,32 @@
+#!/bin/bash
+# This program will genrate the Make.defines file for make to use.
+#
+# 2015/09/16 lin First release
+cc="CC = gcc"
+vpath="vpath %.h ../include"
+inclu="INCLU = -I ../include"
+lib="LIB = -L ../lib"
+unp=""
+
+uname -a | grep "^Darwin.*x86_64" > /dev/null
+if [ $? == 0 ]; then
+  unp="UNP = -lDarwin_unp64"
+else
+  uname -a | grep "^Linux.*x86_64" > /dev/null
+  if [ $? == 0 ]; then
+    unp="UNP = -lLinux_unp64"
+  else
+	unp="UNP = -lLinux_unp32"
+  fi
+fi
+
+[ -e ./Make.defines ] && rm ./Make.defines
+touch Make.defines
+
+echo $cc >> Make.defines
+echo $vpath >> Make.defines
+echo $inclu >> Make.defines
+echo $lib >> Make.defines
+echo $unp >> Make.defines
+
+exit 0
